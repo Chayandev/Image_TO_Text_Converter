@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imge to text Coverter</title>
+    <link href='https://css.gg/moon.css' rel='stylesheet'>
+    <link href='https://css.gg/sun.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- css -->
+    <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <nav id="topnav">
+        <div class="navlogo">
+            <img src=" {{ url_for('static',filename='images/logo_imagetotext.png') }}" alt="Error!">
+        </div>
+        <div class="menu" id="home">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="dark-light">
+            <i class="gg-moon"></i>
+            <i class="gg-sun"></i>
+        </div>
+    </nav>
+    <div class="text" id="about">
+        <h3>Image To Text</h3>
+        <p>This site presents an online OCR (Optical Character Recognition) service to extract text from image. Upload
+            photo to image to text converter, click on convert and get your text file instantly.</p>
+    </div>
+    <main>
+        <div class="row">
+            <div class="logo">
+                <img src=" {{ url_for('static',filename='images/upload_logo.png') }}">
+            </div>
+            <h2>Select a file to upload</h2>
+            <p>
+                {% with message = get_flashed_messages() %}
+                {% if message %}
+            <ul>
+                {% for message in message %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            </p>
+            {% if filename %}
+            <div class="uploaded_img">
+                <img src="{{ url_for('display_image', filename=filename) }}">
+            </div>
+            <div class="disply_text">
+                <p>{{ result }}</p>
+                <div class="buttons">
+                    <li class="sound"><i class="fa fa-volume-up"></i></li>
+                    <li class="copy"><i class="fa fa-copy"></i></li>
+                </div>
+            </div>
+            {% endif %}
+            <form action="/" method="POST" enctype="multipart/form-data">
+                <p>
+                    <input type="file" name="file" class="form-control" autocomplete="off" required>
+                </p>
+                <input type="submit" name="action" value="Convert to Text" class="btn-submit">
+            </form>
+        </div>
+        </div>
+
+    </main>
+    <footer>
+        <div class="copywright"><span>Copyrights &#9400; | All rights reserved</span>
+            <ul class="socials" id="contact">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
+            </ul>
+    </footer>
+</body>
+<script src="{{ url_for('static',filename='js/main.js') }}"></script>
+</html>
